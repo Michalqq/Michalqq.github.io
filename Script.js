@@ -2,7 +2,6 @@
 function checkKey(e) {
 
     e = e || window.event;
-    alert (e.keyCode);
     if (document.getElementById("PlayTime").innerHTML==" 0 s.")
         {
             startTime();
