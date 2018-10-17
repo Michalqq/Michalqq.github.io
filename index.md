@@ -38,5 +38,4 @@
 document.getElementById("1x1").value=2;
 document.getElementById("1x2").value=2;
 document.onkeydown = checkKey;
-  alert("test");
 </script>
