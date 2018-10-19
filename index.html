@@ -3,6 +3,7 @@
 <head>
 <script src="Script.js"></script>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="style.css">
 <title>Gra - 2048</title>
 
@@ -15,7 +16,7 @@
 <button id= "Restart" type="button" style="width: 100px; height: 40px; position: absolute; top: 540px; left:10px" onclick="Restart()">Od nowa</button>
 </head>
 <body>
-
+<div class="div1">
 <input id="1x1" class="box row1" style="row1; left: 5px" disabled><br>
 <input id="1x2" class="box row1" style="left: 105px" disabled><br>
 <input id="1x3" class="box row1" style="left: 205px" disabled><br>
@@ -32,6 +33,9 @@
 <input id="4x2" class="box row4" style="left: 105px" disabled><br>
 <input id="4x3" class="box row4" style="left: 205px" disabled><br>
 <input id="4x4" class="box row4" style="left: 305px" disabled><br>
+</div>
+<button id= "up" type="button" style="width: 50px; height: 50px; position: absolute; top: 150px; left:500px" onclick="btnPress()">UP</button>
+<button id= "down" type="button" style="width: 50px; height: 50px; position: absolute; top: 200px; left:500px" onclick="btnPress()">DOWN</button>
 </body>
 </html>
 <script>
