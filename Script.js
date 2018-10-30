@@ -116,7 +116,6 @@ function moveBoxesLeft() {
             }
         }
     }
-    
     for (i=4; i>0; i--){
         box1 = document.getElementById(i+"x1");
         box2 = document.getElementById(i+"x2");
