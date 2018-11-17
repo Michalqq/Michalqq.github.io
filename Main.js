@@ -1389,15 +1389,16 @@ function checkDev(id){
 }
 function MyAlert(text, box, timeText, timeBox, clear) {
     let tempColorStyle;
+    let tempZindexStyle;
     if (box!=null){
         if (box.style.backgroundColor!="red") {
             tempColorStyle=box.style.backgroundColor;
         } else {
             tempColorStyle="";
         }
-    let tempZindexStyle=box.style.zIndex;
-    box.style.backgroundColor="red";
-    box.style.zIndex=3;
+        tempZindexStyle=box.style.zIndex;
+        box.style.backgroundColor="red";
+        box.style.zIndex=3;
     }
     document.getElementById("DevAlert").innerHTML=text;
     document.getElementById("DevAlert").style.backgroundColor="white";
