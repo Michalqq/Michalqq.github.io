@@ -313,8 +313,8 @@ Kontakt:  kraciukmichal@gmail.com-->
 </div>
 <!-- zwijać -->
 <div class="Boxes">
-
-<input type="tel" id="dimZ" class="box" style="left: 5px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" placeholder="Z" type="Dim"><br>
+<!--
+<input id="dimZ" class="box" style="left: 5px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" placeholder="Z" type="Dim"><br>
 <input id="dimA" class="box" style="left: 139px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" placeholder="A" value="" type="Dim"><br>
 <input id="dimB" class="box" style="left: 242px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" placeholder="B" type="Dim"><br>
 <input id="dimC" class="box" style="left: 345px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" placeholder="C" type="Dim"><br>
@@ -337,6 +337,30 @@ Kontakt:  kraciukmichal@gmail.com-->
 <input id="devDownD" class="box" style="left: 486px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" placeholder="ei"   type="devDown"><br>
 <input id="devDownE" class="box" style="left: 588px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" placeholder="ei"  type="devDown"><br>
 <input id="devDownF" class="box" style="left: 689px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" placeholder="ei"   type="devDown"><br>
+-->
+<input id="dimZ" type="tel" class="box" style="left: 5px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" placeholder="Z" type1="Dim"><br>
+<input id="dimA" type="tel" class="box" style="left: 139px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" placeholder="A" value="2" type1="Dim"><br>
+<input id="dimB" type="tel" class="box" style="left: 242px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" placeholder="B" value="10" type1="Dim"><br>
+<input id="dimC" type="tel" class="box" style="left: 345px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" placeholder="C" value="5" type1="Dim"><br>
+<input id="dimD" type="tel" class="box" style="left: 448px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" placeholder="D"  value="20" type1="Dim"><br>
+<input id="dimE" type="tel" class="box" style="left: 549px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" placeholder="E"  type1="Dim"><br>
+<input id="dimF" type="tel" class="box" style="left: 652px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" placeholder="F"   type1="Dim"><br>
+
+<input id="devUpZ" type="tel" class="box" style="left: 48px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" placeholder="es" type1="devUp"><br>
+<input id="devUpA" type="tel" class="box" style="left: 180px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" placeholder="es" value="+0,05" type1="devUp"><br>
+<input id="devUpB" type="tel" class="box" style="left: 282px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" placeholder="es" value="+0,02" type1="devUp"><br>
+<input id="devUpC" type="tel" class="box" style="left: 384px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" placeholder="es" value="+0,015" type1="devUp"><br>
+<input id="devUpD" type="tel" class="box" style="left: 486px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" placeholder="es"  value="+0,1" type1="devUp"><br>
+<input id="devUpE" type="tel" class="box" style="left: 588px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" placeholder="es"  type1="devUp"><br>
+<input id="devUpF" type="tel" class="box" style="left: 689px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" placeholder="es"   type1="devUp"><br>
+
+<input id="devDownZ" type="tel" class="box" style="left: 48px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" placeholder="ei" type1="devDown"><br>
+<input id="devDownA" type="tel" class="box" style="left: 180px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" placeholder="ei" value="-0,02" type1="devDown"><br>
+<input id="devDownB" type="tel" class="box" style="left: 282px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" placeholder="ei" value="-0,05" type1="devDown"><br>
+<input id="devDownC" type="tel" class="box" style="left: 384px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" placeholder="ei" value="-0,1" type1="devDown"><br>
+<input id="devDownD" type="tel" class="box" style="left: 486px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" placeholder="ei" value="0" type1="devDown"><br>
+<input id="devDownE" type="tel" class="box" style="left: 588px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" placeholder="ei"  type1="devDown"><br>
+<input id="devDownF" type="tel" class="box" style="left: 689px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" placeholder="ei"   type1="devDown"><br>
 
 <div id="tolBiggerA" class="tolBigger" style="left: 180px; display: none">0%</div>
 <div id="tolBiggerB" class="tolBigger" style="left: 282px; display: none">0%</div>
@@ -346,25 +370,25 @@ Kontakt:  kraciukmichal@gmail.com-->
 <div id="tolBiggerF" class="tolBigger" style="left: 689px; display: none">0%</div>
 
     
-<input id="ZamdevUpZ" class="Zam" style="left: 50px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type="devUpZam"><br>
-<input id="ZamdevUpA" class="Zam" style="left: 182px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type="devUpZam"><br>
-<input id="ZamdevUpB" class="Zam" style="left: 284px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type="devUpZam"><br>
-<input id="ZamdevUpC" class="Zam" style="left: 386px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type="devUpZam"><br>
-<input id="ZamdevUpD" class="Zam" style="left: 488px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type="devUpZam"><br>
-<input id="ZamdevUpE" class="Zam" style="left: 590px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type="devUpZam"><br>
-<input id="ZamdevUpF" class="Zam" style="left: 693px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type="devUpZam"><br>
+<input id="ZamdevUpZ" class="Zam" style="left: 50px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type1="devUpZam"><br>
+<input id="ZamdevUpA" class="Zam" style="left: 182px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type1="devUpZam"><br>
+<input id="ZamdevUpB" class="Zam" style="left: 284px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type1="devUpZam"><br>
+<input id="ZamdevUpC" class="Zam" style="left: 386px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type1="devUpZam"><br>
+<input id="ZamdevUpD" class="Zam" style="left: 488px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type1="devUpZam"><br>
+<input id="ZamdevUpE" class="Zam" style="left: 590px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type1="devUpZam"><br>
+<input id="ZamdevUpF" class="Zam" style="left: 693px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type1="devUpZam"><br>
 
-<input id="ZamdevDownZ" class="Zam" style="left: 50px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type="devDownZam"><br>
-<input id="ZamdevDownA" class="Zam" style="left: 182px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type="devDownZam"><br>
-<input id="ZamdevDownB" class="Zam" style="left: 284px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type="devDownZam"><br>
-<input id="ZamdevDownC" class="Zam" style="left: 386px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type="devDownZam"><br>
-<input id="ZamdevDownD" class="Zam" style="left: 488px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type="devDownZam"><br>
-<input id="ZamdevDownE" class="Zam" style="left: 590px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type="devDownZam"><br>
-<input id="ZamdevDownF" class="Zam" style="left: 693px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type="devDownZam"><br>
+<input id="ZamdevDownZ" class="Zam" style="left: 50px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type1="devDownZam"><br>
+<input id="ZamdevDownA" class="Zam" style="left: 182px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type1="devDownZam"><br>
+<input id="ZamdevDownB" class="Zam" style="left: 284px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type1="devDownZam"><br>
+<input id="ZamdevDownC" class="Zam" style="left: 386px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type1="devDownZam"><br>
+<input id="ZamdevDownD" class="Zam" style="left: 488px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type1="devDownZam"><br>
+<input id="ZamdevDownE" class="Zam" style="left: 590px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type1="devDownZam"><br>
+<input id="ZamdevDownF" class="Zam" style="left: 693px" onkeypress="validate(event,id)" onkeyup="changeDOT(id)" onfocusout="checkDev(id)" onfocus="HideOryginal(id)" onfocusout="CheckVisible(id)" type1="devDownZam"><br>
 </div>
 <p id="DevAlert" style="position:absolute; left:345px; top: 206px; color: red; font-size:10px; z-index: 3; padding: 4px; border-radius:8px;"></p>
 <div id="GreyedScreen" style="position: absolute; left: 0px; top: -50px; width: 120%; height:100%; background-color: white; opacity: 0.6; z-index: -2"></div>
-<p id="RozWymiarow" style="position:absolute; left:10px; top: 210px"> Wybierz rozkład wymiarów wszystkich elementów:</p>
+<p id="RozWymiarow" class="rozWymiarStyle"> Wybierz rozkład wymiarów wszystkich elementów:</p>
 <button id="Oblicz" class="buttonAllCheck btn sec" onclick="getMaxRange(0); AcceptRozkladDiv(1)" style="top:250px"><b>Znajdź wymiar Z<br> metodą MinMax</b></button>
 <button id="RozkladOblicz" class="buttonAllCheck btn sec" onclick="getMaxRange(1)" style="top:283px"><b>Rozkład wymiaru zależnego</b></button>
 <button id="ObliczDodatkowy" class="buttonAllCheck btn sec" onclick="getMaxRange(2); AcceptRozkladDiv(1)" style="top:316px; padding-bottom: 2px; padding-top: 2px;"><b>Znajdź wymiar niezależny</b></button>
@@ -433,9 +457,9 @@ Kontakt:  kraciukmichal@gmail.com-->
 </form>
 <script>
     if (document.documentElement.clientWidth<document.body.clientWidth) {
-           document.body.style.transform="scale("+((document.body.clientWidth/(1.1*document.documentElement.clientWidth)).toFixed(1))+")"; 
+           document.body.style.transform="scale("+((document.body.clientWidth/(1.01*document.documentElement.clientWidth)).toFixed(1))+")"; 
        } else {
-           document.body.style.transform="scale("+((document.documentElement.clientWidth/(1.1*document.body.clientWidth)).toFixed(1))+")"; 
+           document.body.style.transform="scale("+((document.documentElement.clientWidth/(1.01*document.body.clientWidth)).toFixed(1))+")"; 
        }
 Description();  
 var scroll = document.body.style.transform;
