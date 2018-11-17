@@ -288,7 +288,7 @@ function ActivateMenu(id){ // Aktywowanie menu na górze w pasku
 	document.getElementById("container").style.visibility = "hidden";
     document.getElementById("container2").style.visibility = "hidden";
     if (document.getElementById("Zam_czesciowa").value=="checked"){
-        document.getElementById("RozWymiarow").innerHTML=" &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Przyrost tolerancji:";
+        document.getElementById("RozWymiarow").innerHTML="&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Przyrost tolerancji:";
     } else {
         document.getElementById("RozWymiarow").innerHTML=" Wybierz rozkład wymiarów dla wszystkich elementów:";
     }
@@ -455,7 +455,7 @@ function AcceptBtnZamiennosc(id){ // Zamiennosc czesciowa przycisk
             Box = document.getElementById('devDown'+DimIndex[i]);
 			Box.disabled=true;
 			Box.style="left:"+Box.style.left+"; background-color: #00a80e";
-            document.getElementById("RozWymiarow").innerHTML=" &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Przyrost tolerancji:"
+            document.getElementById("RozWymiarow").innerHTML="&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Przyrost tolerancji:"
             if (document.getElementById("dim"+DimIndex[i]).value!=""){
                 document.getElementById("dim"+DimIndex[i]).style.color='red';
                 document.getElementById("devUp"+DimIndex[i]).style.color='red';
@@ -1064,6 +1064,9 @@ function Licz(id,Multiple=0,index_ucinania_dołu=0){ //Rozkład rzeczywisty w za
     //MaxScale=3.2/(ChartScale+(zakres/ChartScale)*0.01);
     MaxScale=44/(10*ChartScale + (zakres/ChartScale)*0.03);
     var ColorIndex1=[];
+    let labelText;
+    if (Multiple==0) labelText = "(idealny)"
+    else labelText = ""
 	for (i=0; i<=80; i++){ //Lista kolorów słupków wykresu złożenia
 	ColorIndex1[i]=ColorIndex[BTNlistpos];
 	}
@@ -1103,7 +1106,7 @@ function Licz(id,Multiple=0,index_ucinania_dołu=0){ //Rozkład rzeczywisty w za
 		config.data = {
 			labels: zmienneXTab,
 			datasets: [{
-				label: LabelIndex[BTNlistpos],
+				label: LabelIndex[BTNlistpos] + labelText,
 				data: DataIndex[BTNlistpos],
 				backgroundColor:ColorIndex1,
 				borderColor:ColorIndex[BTNlistpos],
@@ -1160,7 +1163,7 @@ function Licz(id,Multiple=0,index_ucinania_dołu=0){ //Rozkład rzeczywisty w za
         var canvas = document.getElementById("CharttHist"+(id.substr(0,1)));
         document.getElementById("ChartHist"+id.substr(0,1)+"Wym").innerHTML="Wymiar "+DimIndex[id.substr(0,1)];
         var ctx = canvas.getContext('2d'); 
-            config.options.legend.labels.fontSize=8;
+            config.options.legend.labels.fontSize=11;
             config.options.scales.xAxes[0].ticks.fontSize=9;
             config.options.scales.yAxes[0].ticks.display=true;
             config.options.scales.yAxes[0].ticks.fontSize=9;
@@ -1386,15 +1389,15 @@ function checkDev(id){
 }
 function MyAlert(text, box, timeText, timeBox, clear) {
     let tempColorStyle;
-    if (box.style.backgroundColor!="red") {
-        tempColorStyle=box.style.backgroundColor;
-    } else {
-        tempColorStyle="";
-    }
+    if (box!=null){
+        if (box.style.backgroundColor!="red") {
+            tempColorStyle=box.style.backgroundColor;
+        } else {
+            tempColorStyle="";
+        }
     let tempZindexStyle=box.style.zIndex;
-    if (box!=null) {
-        box.style.backgroundColor="red";
-        box.style.zIndex=3;
+    box.style.backgroundColor="red";
+    box.style.zIndex=3;
     }
     document.getElementById("DevAlert").innerHTML=text;
     document.getElementById("DevAlert").style.backgroundColor="white";
@@ -1432,6 +1435,7 @@ function GetScheduledBtn() { //Sprawdzamy jaki rozkład wymiarów został wybran
 				}
 				if (j==6 && counter==0){
 					AlertButton(i);
+                    MyAlert("Najpierw wybierz rozkłady wymiarów niezależnych", null, 5000,500,0);
 					return 0
 				}
 			}
@@ -1517,7 +1521,7 @@ function getMaxRange(Param){ // (param 1,) obliczanie złożenia
 	var temp1=0.0;
 	var temp2=0.0;
 	var Xstart=0;
-    if (Param!=0) var ScheduleBtn=GetScheduledBtn();
+    if (Param!=0 && Param!=2) var ScheduleBtn=GetScheduledBtn();
     else ScheduleBtn=1;
 	if (ScheduleBtn==0) { return};
     MaxRange=0.0;
@@ -1608,16 +1612,6 @@ function getMaxRange(Param){ // (param 1,) obliczanie złożenia
                 MyAlert("Wpisz wymiar zależny Z wraz z odchyłkami",Box,5000,1500,);
                 MyAlert("Wpisz wymiar zależny Z wraz z odchyłkami",BoxDown,5000,1500,);
                 MyAlert("Wpisz wymiar zależny Z wraz z odchyłkami",BoxUp,5000,1500,);
-                /*Box.style.backgroundColor="red";
-                BoxDown.style.backgroundColor="red";
-                BoxUp.style.backgroundColor="red";
-                document.getElementById("DevAlert").innerHTML="Wpisz wymiar zależny Z wraz z odchyłkami"
-                    setTimeout(function() {
-                Box.style.backgroundColor="#aaf7aa";
-                BoxDown.style.backgroundColor="#aaf7aa";
-                BoxUp.style.backgroundColor="#aaf7aa";
-                }, 1500);
-                    setTimeout(function() {document.getElementById("DevAlert").innerHTML="" }, 5000);*/
                 return;
             }
 		DevUp=document.getElementById("devUpZ").value.replace(",",".");
@@ -1649,16 +1643,6 @@ function getMaxRange(Param){ // (param 1,) obliczanie złożenia
             MyAlert("Zmień dane. Zadanie nie do rozwiązania.",Box,5000,1500);
             MyAlert("Zmień dane. Zadanie nie do rozwiązania.",BoxDown,5000,1500);
             MyAlert("Zmień dane. Zadanie nie do rozwiązania.",BoxUp,5000,1500);
-            /*Box.style.backgroundColor="red";
-            BoxDown.style.backgroundColor="red";
-            BoxUp.style.backgroundColor="red";
-            document.getElementById("DevAlert").innerHTML="Zmień dane. Zadanie nie do rozwiązania."
-                setTimeout(function() {
-            Box.style.backgroundColor="#aaf7aa";
-            BoxDown.style.backgroundColor="#aaf7aa";
-            BoxUp.style.backgroundColor="#aaf7aa";
-            }, 1500);
-                setTimeout(function() {document.getElementById("DevAlert").innerHTML="" }, 5000);*/
             return;
             }
         }
@@ -1673,16 +1657,11 @@ function getMaxRange(Param){ // (param 1,) obliczanie złożenia
                     if (index_zmiany==null) {
                         return;
                     }
-                    //for (j=0; j<1; j++) {	
                         if (index_zmiany>50000 || index_zmiany<100){
                             index_zmiany=prompt("Wpisz poprawną wartość\nIle losowań od 100 do 50 000", 1000);
                         } else { j=2; }
-                    //}
                     if (index_zmiany>50000 || index_zmiany<100){
                         return; }
-                    //index_zmiany=1000/(Math.sqrt(11*index_zmiany*index_zmiany/5)+200);
-                    
-                    //index_zmiany=(100000/(200*index_zmiany));
                 } else if (Param==0) {
                     index_zmiany=1;
                 }
