@@ -551,8 +551,6 @@ function changeDOT(id){
 function validate(evt,id) {
 var theEvent = evt || window.event;
 var key = theEvent.keyCode || theEvent.which;
-    
-    alert(key);
     if (key=="39"){theEvent.returnValue = false;};
     if (key!="8" && key!="37" && key!="39"){
             key = String.fromCharCode( key );
