@@ -549,9 +549,10 @@ function changeDOT(id){
     MaxScaleHistogram=0;
 }
 function validate(evt,id) {
-    alert(theEvent.keyCode);
 var theEvent = evt || window.event;
 var key = theEvent.keyCode || theEvent.which;
+    
+    alert(key);
     if (key=="39"){theEvent.returnValue = false;};
     if (key!="8" && key!="37" && key!="39"){
             key = String.fromCharCode( key );
