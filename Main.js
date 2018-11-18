@@ -726,7 +726,8 @@ function Licz(id,Multiple=0,index_ucinania_dołu=0){ //Rozkład rzeczywisty w za
                     {
                         ChartScale=parseFloat(document.getElementById("devUp"+DimIndex[Temp1]).value.replace(",","."))-parseFloat(document.getElementById("devDown"+DimIndex[Temp1]).value.replace(",","."));
                     }
-                dimTemp=document.getElementById("dim"+DimIndex[Temp1+1]).value;
+                if (Temp1<6) dimTemp=document.getElementById("dim"+DimIndex[Temp1+1]).value;
+                else dimTemp="";
             }
     }
     delete tempDevDown;
@@ -1924,9 +1925,9 @@ function getMaxRange(Param){ // (param 1,) obliczanie złożenia
 		if (document.getElementById("dim"+DimIndex[i+1]).value.replace(",",".")=="" || i==6){
 			Drawline((DimTemp+2),(i*45+40),(DimTemp+2),(i*45-i*85),"black",3);
 			if (OrgDim<0) {
-			Draw(DimTemp+2,0,(Xstart-DimTemp),30,"black",DimIndex[0]+"="+DimNew,Sign);
+			Draw(DimTemp+2,0,(Xstart-DimTemp),30,"black",DimIndex[0]+"="+DimNew,-1);
 			} else {
-			Draw(Xstart,0,(DimTemp-Xstart),30,"black",DimIndex[0]+"="+DimNew,Sign);
+			Draw(Xstart,0,(DimTemp-Xstart),30,"black",DimIndex[0]+"="+DimNew,1);
 			}
 		}
 	}
