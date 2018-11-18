@@ -1939,6 +1939,6 @@ function getMaxRange(Param){ // (param 1,) obliczanie złożenia
 		}
 	}
 }    
-document.getElementById("container").style.marginLeft = (-temp2+10)+"px";
-svg.setAttribute("width", (-temp2+10+10800));
+document.getElementById("container").style.marginLeft = (-temp2)+"px";
+svg.setAttribute("width", (-temp2+10755));
 }
