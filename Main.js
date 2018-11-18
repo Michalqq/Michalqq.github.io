@@ -720,8 +720,8 @@ function Licz(id,Multiple=0,index_ucinania_dołu=0){ //Rozkład rzeczywisty w za
         for (i=1; dimTemp!=""; i++)
             {
                 Temp1=i;
-                tempDevUp=document.getElementById("devUp"+DimIndex[Temp1]).value.replace(",",".")
-                tempDevDown=document.getElementById("devDown"+DimIndex[Temp1]).value.replace(",",".")
+                tempDevUp=document.getElementById("devUp"+DimIndex[Temp1]).value.replace(",",".");
+                tempDevDown=document.getElementById("devDown"+DimIndex[Temp1]).value.replace(",",".");
                 if (ChartScale > (tempDevUp - tempDevDown))
                     {
                         ChartScale=parseFloat(document.getElementById("devUp"+DimIndex[Temp1]).value.replace(",","."))-parseFloat(document.getElementById("devDown"+DimIndex[Temp1]).value.replace(",","."));
@@ -831,8 +831,8 @@ function Licz(id,Multiple=0,index_ucinania_dołu=0){ //Rozkład rzeczywisty w za
     var tempMax=0.0;
     var indexTab="";
     var CheckNext=0;
-    //var SUMROZKLADNORMALNY=0.0
-    //var SUMROZKLADNORMALNY1=0.0
+    var SUMROZKLADNORMALNY=0.0
+    var SUMROZKLADNORMALNY1=0.0
     //var SUMROZKLADNORMALNY2=0.0
     //var SUMROZKLADNORMALNY3=0.0
 		for(i=0; i<1.0*(podzialka+1); i++) { //obliczanie wartosci dla wszystkich rozkladow
@@ -845,8 +845,8 @@ function Licz(id,Multiple=0,index_ucinania_dołu=0){ //Rozkład rzeczywisty w za
 					rozNormAsym.push(temp/(sigmaNorm*Math.sqrt(2*Math.PI)));
 				}
 				//temp=Math.pow(Math.E,(-1*Math.pow((zmienneXTab[i]-MinDim),2)/(Math.pow(sigmaNorm,2)*2)));	//rozklad Rayleigha
-				temp=Math.pow(Math.E,(-1*Math.pow((zmienneXTab[i]-MinDim),2)/(Math.pow(sigmaNorm*1.2,2)*2)));	//rozklad Rayleigha
-				rozRayl.push(((zmienneXTab[i]-MinDim)*temp*0.7)/Math.pow(sigmaNorm,2)+0.0001);
+				temp=Math.pow(Math.E,(-1*Math.pow((zmienneXTab[i]-MinDim),2)/(Math.pow(sigmaNorm*1.5,2)*2)));	//rozklad Rayleigha
+				rozRayl.push(((zmienneXTab[i]-MinDim)*temp*0.44)/Math.pow(sigmaNorm,2)+0.0001);
 				//rozRayl.push(((zmienneXTab[i]-MinDim)*temp)/Math.pow(sigmaNorm,2)+0.0001);
              //SUMROZKLADNORMALNY1=SUMROZKLADNORMALNY1+rozRayl[i];
 				rozRaylPLUS.unshift(((zmienneXTab[i]-MinDim)*temp*0.7)/Math.pow(sigmaNorm,2)+0.0001);
@@ -902,6 +902,7 @@ function Licz(id,Multiple=0,index_ucinania_dołu=0){ //Rozkład rzeczywisty w za
 					} 
 					zmienneXTab[i]=parseFloat(zmienneXTab[i].toFixed(4));
 		}
+    //alert(SUMROZKLADNORMALNY + "  " + SUMROZKLADNORMALNY1);
 	DataIndex=[rozMinMax,rozNorm, rozRown, rozTroj, rozRaylPLUS, rozRayl, rozNormAsym];
 	if (Multiple !=0){	
 	for (j=0; j<7; j++) {
@@ -922,27 +923,21 @@ function Licz(id,Multiple=0,index_ucinania_dołu=0){ //Rozkład rzeczywisty w za
                         rozMinMax[podzialka]=((podzialka+1-temp)*(index_zmiany/podzialka).toFixed(0));
                         break;
 				case 0:
-					//rozNorm[i]=(ActualDistr(DataIndex[j],i,(Math.max.apply(Math, rozNorm)),index_zmiany,index_ucinania_dołu));
                     rozNorm=MonteCarlo(DataIndex[j],zmienneXTab,index_zmiany);
                         break;
 				case 1:
-					//rozRown[i]=(ActualDistr(DataIndex[j],i,(Math.max.apply(Math, rozRown))*0.0001,(index_zmiany),index_ucinania_dołu));
 					rozRown=MonteCarlo(DataIndex[j],zmienneXTab,index_zmiany);
                         break;
 				case 2:
-					//rozTroj[i]=(ActualDistr(DataIndex[j],i,(Math.max.apply(Math, rozTroj)),index_zmiany,index_ucinania_dołu));
 					rozTroj=MonteCarlo(DataIndex[j],zmienneXTab,index_zmiany);
                         break;
 				case 3:
-					//rozRaylPLUS[i]=(ActualDistr(DataIndex[j],i,(Math.max.apply(Math, rozRaylPLUS)),index_zmiany,index_ucinania_dołu));
 					rozRaylPLUS=MonteCarlo(DataIndex[j],zmienneXTab,index_zmiany);
                         break;
 				case 4:	
-                        //rozRayl[i]=(ActualDistr(DataIndex[j],i,(Math.max.apply(Math, rozRayl)),index_zmiany,index_ucinania_dołu));
 					rozRayl=MonteCarlo(DataIndex[j],zmienneXTab,index_zmiany);
                         break;
 				case 5:
-					//rozNormAsym[i]=(ActualDistr(DataIndex[j],i,(Math.max.apply(Math, rozNormAsym)),index_zmiany,index_ucinania_dołu));
                     rozNormAsym=MonteCarlo(DataIndex[j],zmienneXTab,index_zmiany);
                         break;
 				}	
@@ -996,9 +991,8 @@ function Licz(id,Multiple=0,index_ucinania_dołu=0){ //Rozkład rzeczywisty w za
             }
         
         }
-        TemprozFinished=[]; 
+        TemprozFinished=[];
         if (rozFinished.length==0){// Tworzenie tabeli ze zmiennymi o wymiarach A
-            
             for (i=0; i<index_zmiany; i++) {
                     for(j=0; j<DataIndex[BTNlistpos][i]; j++){
                             //alert(zmienneXTab[i]);
@@ -1007,14 +1001,13 @@ function Licz(id,Multiple=0,index_ucinania_dołu=0){ //Rozkład rzeczywisty w za
                     }
             rozFinished=rozFinishedTEMP;
 		} else {	// Tworzenie tabeli ze zmiennymi o wymiarach sumy A+....itd.
-                //alert(DataIndex[BTNlistpos]);
 			    for (i=0; i<index_zmiany; i++) {
                         for(j=0; j<(DataIndex[BTNlistpos][i]); j++) {
                         TemprozFinished.push(parseFloat(zmienneXTab[i]));
                         }
                     }
                 for (i=0; i<index_zmiany; i++){
-                    if (BTNlistpos==0){
+                   /* if (BTNlistpos==0){ // rozklad MinMax - przycisk 0 (nieużywane)
                         if (i<index_zmiany/3){
                            temp=(Math.random()*((TemprozFinished.length-1)/2)).toFixed(0); 
                         }else if (i>index_zmiany/3 && i<2*(index_zmiany/3)){
@@ -1022,14 +1015,13 @@ function Licz(id,Multiple=0,index_ucinania_dołu=0){ //Rozkład rzeczywisty w za
                         } else{
                             temp=(Math.random()*((TemprozFinished.length-1)/3)+((2*(TemprozFinished.length-1))/3)).toFixed(0);   
                         }
-                    } else{
+                    } else */{
                         temp=(Math.random()*(TemprozFinished.length-1)).toFixed(0);
                         if (temp<0) temp=0;
                     }
-                    
                         if (isNaN (temp)){
-                                    alert("błąd0011 + "+i);
-                                }
+                            alert("błąd0011 + "+i);
+                        }
                         if(TemprozFinished[temp]<0){
                             alert("błąd0012 + "+temp);
                         }
@@ -1039,11 +1031,10 @@ function Licz(id,Multiple=0,index_ucinania_dołu=0){ //Rozkład rzeczywisty w za
                             alert("błąd0013 + " +temp + " " + i);
                         }
                         TemprozFinished.splice(temp,1);
-                    
                     }
             }
-		temp=Math.max.apply(Math, rozFinished);	//Odejmowanie czesci wykresu w złożeniu
-		temp1=Math.min.apply(Math, rozFinished);
+		//temp=Math.max.apply(Math, rozFinished);	//Odejmowanie czesci wykresu w złożeniu
+		//temp1=Math.min.apply(Math, rozFinished);
 	}
 	var LabelIndex=["MinMax ","r. normalny ","r. równomierny ", "r. trójkątny ","r. Rayleigha - (skośność lewostronna) ","r. Rayleigha + (skośność prawostronna) ","r. norm. niesymetryczny"];
 	var ColorIndex=['rgba(0, 125, 105, 0.9)','rgba(0, 155, 205, 0.9)','rgba(250, 160, 5, 0.9)','rgba(0, 175, 0, 0.9)','rgba(0, 0, 255, 0.9)','rgba(90, 135, 25, 0.9)','rgba(150, 20, 20, 0.9)'];
@@ -1061,9 +1052,8 @@ function Licz(id,Multiple=0,index_ucinania_dołu=0){ //Rozkład rzeczywisty w za
         MaxScale=(((Math.max.apply(Math, rozRayl)*1.1-(Math.max.apply(Math, rozRayl)*1.1))*0.35)+Math.max.apply(Math, rozRayl)*1.2);
     }*/
 	zakres=parseFloat(DevUp)-parseFloat(DevDown);
-    //alert(zakres/ChartScale);
-    //MaxScale=3.2/(ChartScale+(zakres/ChartScale)*0.01);
-    MaxScale=44/(10*ChartScale + (zakres/ChartScale)*0.03);
+    //MaxScale=33/(10*ChartScale + (zakres/ChartScale)*0.5);
+    MaxScale=(1/ChartScale)*3.95 - (0.3*((zakres/ChartScale)-1)*(1/ChartScale));
     var ColorIndex1=[];
     let labelText;
     if (Multiple==0) labelText = "(idealny)"
@@ -1799,7 +1789,6 @@ function getMaxRange(Param){ // (param 1,) obliczanie złożenia
                             }
                     }
                 }
-            //alert("temp= " + temp + "  temp2=  " + temp2);
             if (j==0){
                 document.getElementById("Compare_09973").innerHTML ="99,73% obserwacji (3σ): &nbsp &nbsp <b>"+(100-(temp+temp2)*2.083333333).toFixed(2)+"%</b>";
             } else if (j==1) {
