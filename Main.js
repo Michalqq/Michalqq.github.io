@@ -1404,6 +1404,7 @@ function MyAlert(text, box, timeText, timeBox, clear) {
     document.getElementById("DevAlert").innerHTML=text;
     document.getElementById("DevAlert").style.backgroundColor="white";
     document.getElementById("GreyedScreen").style.zIndex=2;
+    document.getElementById("GreyedScreen").style.opacity=0.6;
     if (box!=null) {
         setTimeout(function() {
             box.style.backgroundColor=tempColorStyle;
@@ -1412,8 +1413,12 @@ function MyAlert(text, box, timeText, timeBox, clear) {
                 box.value=""; 
             }
             document.getElementById("GreyedScreen").style.zIndex=-2;
+            document.getElementById("GreyedScreen").style.opacity=0.0;
         }, timeBox);
-    } else document.getElementById("GreyedScreen").style.zIndex=-2;
+    } else {
+        document.getElementById("GreyedScreen").style.zIndex=-2;
+        document.getElementById("GreyedScreen").style.opacity=0.0;
+    }
     setTimeout(function() {
         document.getElementById("DevAlert").innerHTML=""
         document.getElementById("DevAlert").style.backgroundColor="";
