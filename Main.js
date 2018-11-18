@@ -1697,8 +1697,6 @@ function getMaxRange(Param){ // (param 1,) obliczanie złożenia
             temp=temp*0;
             for (i=0; i<rozFinishedTEMP.length; i++){
                 zmienneXFinished[k]=parseFloat(((DimNew+DevDownNew)+(zakres*k)).toFixed(3));
-                console.log("zmienneX" + zmienneXFinished);
-                console.log("rozfinishedTemp" + rozFinishedTEMP);
                 if (parseFloat(rozFinishedTEMP[i]).toFixed(3)<=parseFloat(zmienneXFinished[k])){
                     temp=temp+1;
                 } else {
