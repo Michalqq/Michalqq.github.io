@@ -1291,6 +1291,8 @@ function AddChart(dataY,dataX,label,colorIndex,id) { //Dodawanie wykresu
 		}
 	myChart = new Chart(ctxFinal,configFinal);
 	if (document.getElementById("Zam_czesciowa").value=="checked"){ // Red and yellow bars on total interchangeability chart
+       document.getElementById('minOrgDimDownDIV').style.visibility = "hidden";
+        document.getElementById('minOrgDimUpDIV').style.visibility = "hidden";
         for (i=0; i<dataX.length; i++) {
             let minOrgDim = (parseFloat(OrgDim)+parseFloat(OrgDevDown)).toFixed(3);
             let maxOrgDim = (parseFloat(OrgDim)+parseFloat(OrgDevUp)).toFixed(3);
@@ -1531,11 +1533,7 @@ function getMaxRange(Param){ // (param 1,) obliczanie złożenia
 		}
 	}
     if(document.getElementById("Zam_czesciowa").value=="checked" && Param==2){
-        
-        document.getElementById("DevAlert").innerHTML="Akcja niemożliwa przy wybranej zamienności częściowej"
-        setTimeout(function() {
-        }, 1500);
-        setTimeout(function() {document.getElementById("DevAlert").innerHTML="" }, 5000);
+        MyAlert("Akcja niemożliwa przy wybranej zamienności częściowej",null, 5000, 1500,0);
         return;
        }
 	for(i=1; i<7; i++) {
