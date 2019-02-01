@@ -281,7 +281,7 @@ img {
             border-radius: 5px;
 		    font: 700 12px/1 'Gill Sans', sans-serif;
 			text-align: center;
-			box-shadow: 5px 3px 15px black;
+			box-shadow: 5px 3px 15px grey;
 			position:absolute;
 			z-index:1;
             }
@@ -291,7 +291,7 @@ img {
             border-radius: 5px;
 		    font: 700 12px/1 'Gill Sans', sans-serif;
 			text-align: center;
-			box-shadow: 4px 4px 15px grey;
+			box-shadow: 4px 4px 5px dimgrey;
 			position:absolute;
 			z-index:1;
             display: none;
