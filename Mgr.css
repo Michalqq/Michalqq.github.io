@@ -23,6 +23,7 @@ head, body {
 body {
     transform: scale(1.3);
     font: 550 10px/1 'Gill Sans', sans-serif;
+    font-size:12px;
     background: #eee;
     background-image: url("image/Background.jpg");
     background-position: center;
