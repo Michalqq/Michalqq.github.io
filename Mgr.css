@@ -281,7 +281,7 @@ img {
 			}
 		input[class="box"]{
 			background-color: #aaf7aa;
-		    border: 1px ridge black;
+		    border: 1px solid black;
             border-radius: 5px;
 		    font: 700 12px/1 'Gill Sans', sans-serif;
 			text-align: center;
@@ -370,7 +370,7 @@ img {
         .button1:hover {
 			background-color: #4CAF50;
 			color: white;
-			box-shadow: 0px 0px 15px black;
+			box-shadow: 0px 0px 15px grey;
 			}
         .button0 {
 			background-color: white; 
@@ -382,7 +382,7 @@ img {
         .button0:hover {
 			background-color: #4CAF50;
 			color: white;
-			box-shadow: 0px 0px 15px black;
+			box-shadow: 0px 0px 15px grey;
 			}
 		
 		.button2 {
@@ -427,6 +427,7 @@ ul1 {
     position: fixed;
     top: 0;
     width: 100%;
+    background-image: linear-gradient(#737373 80%, #999999 );
 }
 
 li1 {
