@@ -1547,12 +1547,10 @@ function Dimensional_synthesis() { //Synteza wymiarowa
             btnPlusSign = document.getElementById("btn+"+dimIndex[i]).value;
         }
         (btnPlusSign == "checked") ? sign=1 : sign=-1;
-        alert(Math.cbrt(parseFloat(actualDim)));
         dimSumCbrt += Math.cbrt(parseFloat(actualDim));
         dim += sign * actualDim;
     }
     factor_k = tolerance / dimSumCbrt;
-    alert("factor= " + factor_k + "  tolerance= " + tolerance + "  sum= " + dimSumCbrt);
     if (dim != document.getElementById("dimZ").value) { // Czy łańcuch wym. poprawny? L=P
         for(i=0; i<7; i++) {
             var Box=document.getElementById("dim" + dimIndex[i]);
