@@ -279,6 +279,35 @@ function SaveToFile(){ //zapis danych do pliku
         
     }
 }
+function SyntDimDescription(id){
+    if (document.getElementById("syntDimDescr").className.indexOf(" visible") == -1 && document.getElementById(id).style.opacity!=0.5){
+        let text;
+        switch(id.substr(0,7)) {
+            case "syntZew":
+                text = "Wymiar zewnętrzny";
+                break;
+            case "syntWew":
+                text = "Wymiar wewnętrzny";
+                break;
+            case "syntMmP":
+                text = "Wymiar mieszany / pośredni";
+                break;
+        }
+        document.getElementById("syntDimDescr").innerHTML = text;
+        document.getElementById("syntDimDescr").style.left = (parseFloat(document.getElementById(id).style.left)-50) + "px";
+        document.getElementById("syntDimDescr").className += " visible";
+    } else {
+        document.getElementById("syntDimDescr").className = "tooltip";
+    }
+}
+function ActivateSyntDim(id) {
+    let text=" Color";
+    if (document.getElementById(id).className.indexOf(" Color") != -1 || document.getElementById(id).style.opacity == 0.5) text = "";
+    document.getElementById("syntZew" + id.substr(id.length-1,1)).className = "SynthesisTop";
+    document.getElementById("syntWew" + id.substr(id.length-1,1)).className = "SynthesisTop";
+    document.getElementById("syntMmP" + id.substr(id.length-1,1)).className = "SynthesisTop";
+    document.getElementById(id).className += text;
+}
 function ActivateMenu(id){ // Aktywowanie menu na górze w pasku
 	var ul = document.getElementById("Menu0");
 	var items = ul.getElementsByTagName("LI1");
@@ -406,7 +435,8 @@ function ChangeSynthAnalys(id) {
         document.getElementById(id).className = index[positionOfIndex];
         document.getElementById(id).style.backgroundColor = "#aeedad";
     }
-    if (positionOfIndex==0)  {
+    if (positionOfIndex==0)  { //Analiza wymiarowa
+        ChangeVisible("hidden");
         document.getElementById(index[positionOfIndex+1]).className = index[positionOfIndex+1]+ " deactive";
         document.getElementById(index[positionOfIndex+1]).style.backgroundColor = "";
         zIndexSynthesis(0,["RozkladOblicz", "Oblicz", "ObliczDodatkowy"]);
@@ -416,27 +446,59 @@ function ChangeSynthAnalys(id) {
         DisableBox("devUp",DimIndex,"#aaf7aa",false);
         DisableBox("devDown",DimIndex,"#aaf7aa",false);
         
-    } else {
+    } else { // Synteza wymiarowa
+        if ( document.getElementById("Zam_czesciowa").value == "checked") AcceptBtnZamiennosc("Zam_czesciowa");
+        ChangeVisible("visible");
         document.getElementById(index[positionOfIndex-1]).className = index[positionOfIndex-1] + " deactive";
         document.getElementById(index[positionOfIndex-1]).style.backgroundColor = "";
         zIndexSynthesis(-1,["RozkladOblicz", "Oblicz", "ObliczDodatkowy"]);
         zIndexSynthesis(0,["ObliczSynteza"]);
         ChangeOpacity(["BtnSchedule"],0.5);
         zIndexSynthesis(2,["BtnScheduleHide"]);        
-        DisableBox("devUp",DimIndex,"#00a80e",true);
-        DisableBox("devDown",DimIndex,"#00a80e",true);
-        
+        DisableBox("devUp",DimIndex,"#00a80e",true,0);
+        DisableBox("devDown",DimIndex,"#00a80e",true,0);
+        for(j=1; j<7; j++){ 
+            if (document.getElementById("dim" + DimIndex[j-1]).value != "") {
+                document.getElementById("syntZew" + DimIndex[j-1]).style.opacity = 1;
+                document.getElementById("syntWew" + DimIndex[j-1]).style.opacity = 1;
+                document.getElementById("syntMmP" + DimIndex[j-1]).style.opacity = 1;
+            }
+            for (i=1; i<7; i++){// Sprawdź czy rozkłady wymiarów są zaznaczone. Jeśli tak odznacz
+                ButtonID="BtnChart" + j + "." + i;
+                if (document.getElementById(ButtonID).value=="checked") {
+                    AcceptBtnChart(ButtonID);
+                }
+            }
+        }
     }
 }
-function DisableBox (boxName,index,color,disabled){
+function ChangeVisible(visibility){
+    //visibility = "visible" or "hidden" (string type)
+    let dimIndex = ["A", "B", "C", "D", "E", "F"];
+    let index = ["syntZew", "syntWew", "syntMmP"];
+    for (i=0; i<6; i++){
+        document.getElementById(index[0] + dimIndex[i]).style.visibility = visibility;
+        document.getElementById(index[1] + dimIndex[i]).style.visibility = visibility;
+        document.getElementById(index[2] + dimIndex[i]).style.visibility = visibility;
+        if (visibility == "visible") { 
+            document.getElementById(index[0] + dimIndex[i]).style.opacity = 0.5;
+            document.getElementById(index[1] + dimIndex[i]).style.opacity = 0.5;
+            document.getElementById(index[2] + dimIndex[i]).style.opacity = 0.5;
+        }
+            
+    }
+}
+function DisableBox (boxName,index,color,disabled,value=-1){
     // disabled "true" or "false"
     //"index" must be array
-    for(i=0; i<index.length; i++) {
-            Box = document.getElementById(boxName + index[i]);
-			Box.disabled=disabled;
-            Box.style="left:"+Box.style.left+"; background-color:" + color;
+    for(k=0; k<index.length; k++) {
+        Box = document.getElementById(boxName + index[k]);
+        if (value != -1){
+            Box.value = "";
+        }
+        Box.disabled=disabled;
+        Box.style="left:"+Box.style.left+"; background-color:" + color;
     }
-    
 }
 function ChangeOpacity(id, opacity){
     for (i=0; i<id.length; i++){
@@ -521,9 +583,9 @@ function AcceptRozkladDiv(index=0){
         document.getElementById("CompareDiv").style.visibility = "visible";
         document.getElementById("CompareText").style.visibility = "visible";
     } else if (index==1){
-       document.getElementById("RozkladDiv").style.visibility = "hidden"; 
-         document.getElementById("CompareDiv").style.visibility = "hidden";
-         document.getElementById("CompareText").style.visibility = "hidden";
+        document.getElementById("RozkladDiv").style.visibility = "hidden"; 
+        document.getElementById("CompareDiv").style.visibility = "hidden";
+        document.getElementById("CompareText").style.visibility = "hidden";
     }
 }
 function AcceptBtnChart(id){
@@ -592,6 +654,17 @@ function changeDOT(id){
     document.getElementById(id).value=document.getElementById(id).value.replace(".",",");  
     MaxScale=0;
     MaxScaleHistogram=0;
+    if (id.substr(id.length-1,1)!="Z"){
+        if (document.getElementById("BtnSynthesis").className.indexOf(" deactive") == -1 && document.getElementById(id).value!="") {
+            document.getElementById("syntZew" + id.substr(id.length-1,1)).style.opacity = 1;
+            document.getElementById("syntWew" + id.substr(id.length-1,1)).style.opacity = 1;
+            document.getElementById("syntMmP" + id.substr(id.length-1,1)).style.opacity = 1;
+        } else if (document.getElementById("BtnSynthesis").className.indexOf(" deactive") == -1 && document.getElementById(id).value=="") {
+            document.getElementById("syntZew" + id.substr(id.length-1,1)).style.opacity = 0.5;
+            document.getElementById("syntWew" + id.substr(id.length-1,1)).style.opacity = 0.5;
+            document.getElementById("syntMmP" + id.substr(id.length-1,1)).style.opacity = 0.5;
+        }
+    }
 }
 function validate(evt,id) {
 var theEvent = evt || window.event;
@@ -863,8 +936,6 @@ function Licz(id,Multiple=0,index_ucinania_dołu=0){ //Rozkład rzeczywisty w za
 	} else {
 		sigmaRownom=1/zakres;
 	}
-    //sigmaNorm=zakres/(2*Math.sqrt(3*Math.PI));
-    //alert(sigmaNorm + "  sigma2= "+(zakres/(2*Math.sqrt(3)))+ "  sigma3= " + zakres/6)
     sigmaNorm=zakres/6;
     sigmaRownom=1/zakres;
 	MaxDim=zmienneXTab[zmienneXTab.length-1];
@@ -875,22 +946,16 @@ function Licz(id,Multiple=0,index_ucinania_dołu=0){ //Rozkład rzeczywisty w za
     var CheckNext=0;
     var SUMROZKLADNORMALNY=0.0
     var SUMROZKLADNORMALNY1=0.0
-    //var SUMROZKLADNORMALNY2=0.0
-    //var SUMROZKLADNORMALNY3=0.0
 		for(i=0; i<1.0*(podzialka+1); i++) { //obliczanie wartosci dla wszystkich rozkladow
 			CheckNext=0;	
             temp=Math.pow(Math.E,(-1*XNidoKW[i])/(2*Math.pow(sigmaNorm,2)));
 				if (BTNlistpos==1){ //rozklad normalny
 					rozNorm.push(temp/(sigmaNorm*Math.sqrt(2*Math.PI)));
-                    //SUMROZKLADNORMALNY=SUMROZKLADNORMALNY+rozNorm[i];
 				} else if (BTNlistpos==6){ // rozklad normalny asymetryczny
 					rozNormAsym.push(temp/(sigmaNorm*Math.sqrt(2*Math.PI)));
 				}
-				//temp=Math.pow(Math.E,(-1*Math.pow((zmienneXTab[i]-MinDim),2)/(Math.pow(sigmaNorm,2)*2)));	//rozklad Rayleigha
 				temp=Math.pow(Math.E,(-1*Math.pow((zmienneXTab[i]-MinDim),2)/(Math.pow(sigmaNorm*1.5,2)*2)));	//rozklad Rayleigha
 				rozRayl.push(((zmienneXTab[i]-MinDim)*temp*0.44)/Math.pow(sigmaNorm,2)+0.0001);
-				//rozRayl.push(((zmienneXTab[i]-MinDim)*temp)/Math.pow(sigmaNorm,2)+0.0001);
-             //SUMROZKLADNORMALNY1=SUMROZKLADNORMALNY1+rozRayl[i];
 				rozRaylPLUS.unshift(((zmienneXTab[i]-MinDim)*temp*0.7)/Math.pow(sigmaNorm,2)+0.0001);
 	            if (id.substr(0,1)==1){
                     var ButtonID="BtnChart";
@@ -903,7 +968,6 @@ function Licz(id,Multiple=0,index_ucinania_dołu=0){ //Rozkład rzeczywisty w za
                 }
                 if (BTNlistpos==2 || BTNlistpos==3 || BTNlistpos==0){ //rozklad rownomierny, trojkatny, minmax	
 						rozRown.push(sigmaRownom*0.98);
-                    //SUMROZKLADNORMALNY2=SUMROZKLADNORMALNY2+rozRown[i];
                         rozMinMax.push(MinMaxTable[Math.round(Math.random())]);
                     if (Multiple==0){
 						}
@@ -916,10 +980,8 @@ function Licz(id,Multiple=0,index_ucinania_dołu=0){ //Rozkład rzeczywisty w za
 								Temp1=Temp1+1;
                                 temp1=Temp1;
                             }}
-							//temp=(3*sigmaRownom/zakres)*(zmienneXTab[i]-MinDim);
 							temp=(4/(zakres*zakres))*(zmienneXTab[i]-MinDim);
                             rozTroj.push(temp);
-                           // SUMROZKLADNORMALNY3=SUMROZKLADNORMALNY3+rozTroj[i];
                             tempMax=Math.max.apply(Math,rozRown);
                             if (isFinite(tempMax)==false){
                                 tempMax=(2*sigmaRownom/zakres*(zmienneXTab[1]-MinDim))*0.4;
@@ -935,16 +997,12 @@ function Licz(id,Multiple=0,index_ucinania_dołu=0){ //Rozkład rzeczywisty w za
 								if ((MaxRange/2-(zakres-(MaxRange-2*zakres)*0.1)/2.2-(podzialka-i)*(zakres/podzialka))<=0){
                                 }
                             }
-                            //temp=(3*sigmaRownom/zakres)*(zmienneXTab[zmienneXTab.length-1]-zmienneXTab[i]);
                             temp=(4/(zakres*zakres))*(zmienneXTab[zmienneXTab.length-1]-zmienneXTab[i]);
 							rozTroj.push(temp);
-                            //SUMROZKLADNORMALNY3=SUMROZKLADNORMALNY3+rozTroj[i];
-							//rozTroj.push(2.2*temp);
 						}
 					} 
 					zmienneXTab[i]=parseFloat(zmienneXTab[i].toFixed(6));
 		}
-    //alert(SUMROZKLADNORMALNY + "  " + SUMROZKLADNORMALNY1);
 	DataIndex=[rozMinMax,rozNorm, rozRown, rozTroj, rozRaylPLUS, rozRayl, rozNormAsym];
 	if (Multiple !=0){	
 	for (j=0; j<7; j++) {
@@ -1551,8 +1609,7 @@ function tolBiggerCalc(dimIndex) {
         tolBigger = (zakresNew-zakresOld)/zakresOld;
         tolBigger = (tolBigger* 100).toFixed(1);
         document.getElementById("tolBigger" + dimIndex).innerHTML = tolBigger + "%";
-    }
-    
+    } 
 }
 function Dimensional_synthesis() { //Synteza wymiarowa
     let dimIndex=["Z", "A", "B", "C", "D", "E", "F"];
@@ -1564,6 +1621,10 @@ function Dimensional_synthesis() { //Synteza wymiarowa
 	let devDown=document.getElementById("devDownZ").value.replace(",",".");
     let tolerance = parseFloat(devUp) - parseFloat(devDown);
     let index=0;
+    let synthDevUp = "";
+    let synthDevDown = "";
+    let dimType = -1;
+    let typeIndex = ["syntZew", "syntWew", "syntMmP"];
     if (devUp=="" || devUp==null) index=1;
     if (devDown=="" || devDown==null) index=1;
     if (document.getElementById("dimZ").value=="" || document.getElementById("dimZ").value==null) index=1;
@@ -1585,6 +1646,20 @@ function Dimensional_synthesis() { //Synteza wymiarowa
             }
             break;
         }
+        for (k=0; k<3; k++){ // Sprawdź jaki typ wymiaru jest zaznaczony do syntezy wymiarowej
+            if (document.getElementById(typeIndex[k] + dimIndex[i]).className.indexOf("Color") != -1) {
+                dimType = k;
+            }
+        }
+        if (dimType == -1) {
+            var BoxUp=document.getElementById(typeIndex[0] + dimIndex[i]);
+            var BoxDown=document.getElementById(typeIndex[1] + dimIndex[i]);
+            var Box=document.getElementById(typeIndex[2] + dimIndex[i]);
+            MyAlert("Wybierz typ wymiaru",Box,5000,1500,);
+            MyAlert("Wybierz typ wymiaru",BoxDown,5000,1500,);
+            MyAlert("Wybierz typ wymiaru",BoxUp,5000,1500,);
+            return;
+        }  
         let btnMinusSign = document.getElementById("btn-"+dimIndex[i]).value;
         let btnPlusSign = document.getElementById("btn+"+dimIndex[i]).value;
         if (btnPlusSign != "checked" && btnMinusSign != "checked") {
@@ -1607,29 +1682,48 @@ function Dimensional_synthesis() { //Synteza wymiarowa
         actualDim = document.getElementById("dim" + dimIndex[i]).value;
         if (actualDim == "" || actualDim == null) break;
         value = (factor_k * Math.cbrt(parseFloat(actualDim)))/2;
-        if (i==1) value = value * 2;
+        dimType = -1;
+        for (k=0; k<3; k++){ // Sprawdź jaki typ wymiaru jest zaznaczony do syntezy wymiarowej
+            if (document.getElementById(typeIndex[k] + dimIndex[i]).className.indexOf("Color") != -1) {
+                dimType = k;
+            }
+        }
+        //if (i==1) value = value * 2;
         if (value.toString().length>3) {
             value = value.toFixed(3);
             document.getElementById("devUp" + dimIndex[i]).style.fontSize = "11px";
             document.getElementById("devDown" + dimIndex[i]).style.fontSize = "11px";
         }
-        if (i==1) { //pierwszy wymiar tolerowany wgłąb materiału
-            document.getElementById("devUp" + dimIndex[i]).value = "+0,0";
-            document.getElementById("devDown" + dimIndex[i]).value = "-" + value.toString().replace(".",",");
-        } else {
-            document.getElementById("devUp" + dimIndex[i]).value = "+"  + value.toString().replace(".",",");
-            document.getElementById("devDown" + dimIndex[i]).value = "-" + value.toString().replace(".",",");
-            if (document.getElementById("dim" + dimIndex[i+1]).value == "" || document.getElementById("dim" + dimIndex[i+1]).value ==null) { // ostatnie odchyłki obliczane są wg. równania łańcucha
-                document.getElementById("devUp" + dimIndex[i]).value = "";
-                document.getElementById("devDown" + dimIndex[i]).value = "";
-                document.getElementById("dim" + dimIndex[i]).value = "";
-                var temp = dimIndex[i];
-                getMaxRange(2);
-                AcceptRozkladDiv(1);
-                document.getElementById("dim"+temp).style.color='black';
-                document.getElementById("devUp"+temp).style.color='black';
-                document.getElementById("devDown"+temp).style.color='black';
-            }
+        switch (dimType){
+            case 0:
+                value = value * 2;
+                synthDevUp = "+0,0";
+                synthDevDown = "-" + value.toString().replace(".",",");
+                break;
+            case 1:
+                value = value * 2;
+                synthDevUp = "+" + value.toString().replace(".",",");
+                synthDevDown = "-0,0"; 
+                break;
+            case 2:
+                synthDevDown = "-" + value.toString().replace(".",",");
+                synthDevUp = "+" + value.toString().replace(".",",");
+                break;
+        }
+        DisableBox("devUp",dimIndex,"#aaf7aa",false);
+        DisableBox("devDown",dimIndex,"#aaf7aa",false);
+        document.getElementById("devUp" + dimIndex[i]).value = synthDevUp;
+        document.getElementById("devDown" + dimIndex[i]).value = synthDevDown;
+        if (document.getElementById("dim" + dimIndex[i+1]).value == "" || document.getElementById("dim" + dimIndex[i+1]).value ==null) { // ostatnie odchyłki obliczane są wg. równania łańcucha
+            document.getElementById("devUp" + dimIndex[i]).value = "";
+            document.getElementById("devDown" + dimIndex[i]).value = "";
+            document.getElementById("dim" + dimIndex[i]).value = "";
+            var temp = dimIndex[i];
+            getMaxRange(2);
+            AcceptRozkladDiv(1);
+            document.getElementById("dim"+temp).style.color='black';
+            document.getElementById("devUp"+temp).style.color='black';
+            document.getElementById("devDown"+temp).style.color='black';
         }
     }
     getMaxRange(3);
@@ -1703,7 +1797,7 @@ function getMaxRange(Param){ // (param 1,) obliczanie złożenia (Param==2)-Obli
                 return;}
         }
 		if (parseFloat(DevUp)<parseFloat(DevDown)){
-			//alert("Odchyłka górna nie może być mniejsza od odchyłki dolnej\nAkcja przerwana");
+			alert("Odchyłka górna nie może być mniejsza od odchyłki dolnej\nAkcja przerwana\nPowiadom admina");
 			return;
 		}
 		if (Dim!=""){
@@ -1932,7 +2026,8 @@ function getMaxRange(Param){ // (param 1,) obliczanie złożenia (Param==2)-Obli
 	} else { 
         DimIndex=DimIndex[tempIndex];	
 	}
-	if (DimNew==0 && DevUpNew==0 && DevDownNew==0){ // Wymiar i odchyłki =0 NIE WPISUJEMY dodatkowego wymiaru
+    alert("dim index =" + DimIndex);
+	if (DimNew==0 && DevUpNew==0 && DevDownNew==0){ // Wymiar i odchyłki =0 NIE WPISUJEMY dodatkowego wymiaru  
 	Param=0;
     document.getElementById("btn+"+DimIndex).value="checked"
 	document.getElementById('btn-'+DimIndex).className="button button3";
