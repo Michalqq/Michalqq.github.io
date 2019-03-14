@@ -315,6 +315,7 @@ function SaveToFile(){ //zapis danych do pliku
 function SyntDimDescription(id){
     if (document.getElementById("syntDimDescr").className.indexOf(" visible") == -1 && document.getElementById(id).style.opacity!=0.5){
         let text;
+        document.getElementById("syntDimDescr").style.fontSize = "10px";
         switch(id.substr(0,7)) {
             case "syntZew":
                 text = "Wymiar zewnętrzny";
@@ -324,6 +325,7 @@ function SyntDimDescription(id){
                 break;
             case "syntMmP":
                 text = "Wymiar mieszany / pośredni";
+                document.getElementById("syntDimDescr").style.fontSize = "9px";
                 break;
         }
         document.getElementById("syntDimDescr").innerHTML = text;
